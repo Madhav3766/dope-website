@@ -1,0 +1,173 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 255, 255, 255;
+  --background-start-rgb: 0, 0, 0;
+  --background-end-rgb: 0, 0, 0;
+  --primary: 239, 68, 68;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  width: 100%;
+  height: 100%;
+  background-color: #000;
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: #000;
+  min-height: 100%;
+  width: 100%;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* Ensure the main container takes up full height */
+main {
+  min-height: 100vh;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Section spacing */
+section {
+  position: relative;
+  padding: 3rem 0;
+}
+
+/* Only the hero section should be full height */
+#hero {
+  min-height: 100vh;
+  height: 100vh;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+}
+
+/* Other sections should be auto height */
+#about,
+#features,
+#waitlist {
+  min-height: auto;
+  height: auto;
+}
+
+/* Fix for background image in Chrome */
+img.object-cover {
+  object-fit: cover !important;
+  height: 100% !important;
+}
+
+/* Section dividers */
+section:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 10%;
+  right: 10%;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+/* Vertical text styling */
+.vertical-text {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  transform: rotate(180deg);
+  white-space: nowrap;
+  letter-spacing: 0.2em;
+}
+
+/* Font styling */
+.font-headline {
+  font-family: var(--font-oswald), sans-serif !important;
+}
+
+.font-body {
+  font-family: var(--font-poppins), var(--font-inter), sans-serif;
+}
+
+/* Ensure rounded corners for form elements */
+input,
+button {
+  border-radius: 0.5rem !important;
+}
+
+/* Text carousel animation */
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+.animate-scroll {
+  animation: scroll 40s linear infinite;
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+/* Mobile-friendly adjustments */
+@media (max-width: 640px) {
+  .vertical-text {
+    display: none;
+  }
+
+  h1,
+  h2,
+  h3 {
+    word-break: break-word;
+  }
+
+  section {
+    padding: 2rem 0;
+  }
+}
+
+/* Improve tap target sizes on mobile */
+button,
+a {
+  min-height: 44px;
+  min-width: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (max-width: 640px) {
+  button,
+  a,
+  input {
+    font-size: 16px; /* Prevents iOS zoom on focus */
+  }
+}
+
+/* Fix for iOS Safari 100vh issue */
+@supports (-webkit-touch-callout: none) {
+  .min-h-screen {
+    min-height: -webkit-fill-available;
+  }
+}
+
+/* Hide scrollbar but allow scrolling */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}

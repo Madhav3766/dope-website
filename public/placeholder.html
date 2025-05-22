@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Image Path Checker</title>
+  <style>
+    body { font-family: sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; }
+    .image-test { margin-bottom: 20px; border: 1px solid #ccc; padding: 10px; }
+    .success { color: green; }
+    .failure { color: red; }
+  </style>
+</head>
+<body>
+  <h1>Image Path Checker</h1>
+  <p>This file helps diagnose image loading issues on your domain.</p>
+  
+  <div class="image-test">
+    <h2>Testing: /images/logo.png</h2>
+    <img src="/images/logo.png" alt="Logo Test" onerror="this.nextElementSibling.className='failure'; this.nextElementSibling.textContent='Failed to load';" onload="this.nextElementSibling.className='success'; this.nextElementSibling.textContent='Successfully loaded';">
+    <p>Loading...</p>
+  </div>
+  
+  <div class="image-test">
+    <h2>Testing: /public/images/logo.png</h2>
+    <img src="/public/images/logo.png" alt="Logo Public Test" onerror="this.nextElementSibling.className='failure'; this.nextElementSibling.textContent='Failed to load';" onload="this.nextElementSibling.className='success'; this.nextElementSibling.textContent='Successfully loaded';">
+    <p>Loading...</p>
+  </div>
+  
+  <div class="image-test">
+    <h2>Testing: /logo.png</h2>
+    <img src="/logo.png" alt="Root Logo Test" onerror="this.nextElementSibling.className='failure'; this.nextElementSibling.textContent='Failed to load';" onload="this.nextElementSibling.className='success'; this.nextElementSibling.textContent='Successfully loaded';">
+    <p>Loading...</p>
+  </div>
+  
+  <script>
+    // Log deployment information
+    console.log('Domain:', window.location.hostname);
+    console.log('Protocol:', window.location.protocol);
+    console.log('Path:', window.location.pathname);
+    console.log('User Agent:', navigator.userAgent);
+    
+    // Check various image paths
+    const imagePaths = [
+      '/images/logo.png',
+      '/images/mascot.png',
+      '/images/background.png',
+      '/public/images/logo.png',
+      '/public/images/mascot.png',
+      '/public/images/background.png',
+      '/logo.png',
+      '/mascot.png',
+      '/background.png'
+    ];
+    
+    imagePaths.forEach(path => {
+      fetch(path, { method: 'HEAD' })
+        .then(response => {
+          console.log(`Image check: ${path} - Status: ${response.status}`);
+        })
+        .catch(error => {
+          console.error(`Error checking image ${path}:`, error);
+        });
+    });
+  </script>
+</body>
+</html>
